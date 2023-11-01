@@ -13,6 +13,7 @@ All you need to do is start LoginKit, and then make the necessary calls to your 
   s.social_media_url = 'https://twitter.com/danlozanov'
 
   s.ios.deployment_target = '9.0'
+  s.swift_versions = '4.0'
 
   s.source_files = 'LoginKit/Classes/**/*'
   s.resources = 'LoginKit/Assets/*.{xib,xcassets,png,jpg,otf,ttf}'
