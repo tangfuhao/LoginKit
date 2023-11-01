@@ -1,23 +1,33 @@
 PODS:
-  - ILLoginKit (1.0.2):
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FBSDKCoreKit (4.32.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.31.0):
+    - FBSDKCoreKit
+  - ILLoginKit (1.0.0):
+    - FBSDKLoginKit (= 4.31.0)
     - Validator (= 3.0.2)
   - Validator (3.0.2)
 
 DEPENDENCIES:
   - ILLoginKit (from `../`)
 
-SPEC REPOS:
-  trunk:
-    - Validator
-
 EXTERNAL SOURCES:
   ILLoginKit:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
-  ILLoginKit: 8fbef2d8d5ab0651daab460ef522284e6d949b4d
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FBSDKCoreKit: 55d7f2ac45d9c4b9b6119f4e43900fe84b9b7b1b
+  FBSDKLoginKit: 95a252ddffd6919c0f132a02292f0824616d8709
+  ILLoginKit: 38da09a47dd0bac82ebfbec0ebfaf0d577ebff18
   Validator: bf211c1d71b3f910d230c09c70e62429d0fef63a
 
 PODFILE CHECKSUM: 122b20bb1eac42606ddc06e4bca9a845d06723fd
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.4.0

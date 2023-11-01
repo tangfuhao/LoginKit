@@ -30,7 +30,7 @@ class CrossDissolveAnimation: NSObject, UIViewControllerAnimatedTransitioning {
                        delay: 0,
                        usingSpringWithDamping: 300.0,
                        initialSpringVelocity: 5.0,
-                       options: UIView.AnimationOptions.allowUserInteraction,
+                       options: UIViewAnimationOptions.allowUserInteraction,
                        animations: {
 
             toView?.alpha = 1.0

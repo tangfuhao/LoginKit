@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'ILLoginKit'
-  s.version          = '1.0.3'
+  s.version          = '1.0.2'
   s.summary          = 'LoginKit is a quick and easy way to add a Login/Signup UX to your app.'
   s.description      = <<-DESC
 LoginKit handles Signup & Login, via Facebook & Email. It takes care of the UI, the forms, validation, and Facebook SDK access.
@@ -16,7 +16,6 @@ All you need to do is start LoginKit, and then make the necessary calls to your 
 
   s.source_files = 'LoginKit/Classes/**/*'
   s.resources = 'LoginKit/Assets/*.{xib,xcassets,png,jpg,otf,ttf}'
-  s.swift_version = '5.0'
   # s.resource_bundles = {
   #   'LoginKit' => ['LoginKit/Assets/*.{xib,storyboard,xcassets}']
   # }

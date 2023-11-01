@@ -47,7 +47,7 @@ public struct FullNameRule: ValidationRule {
             return false
         }
         
-        guard first.count > 1, last.count > 1 else {
+        guard first.characters.count > 1, last.characters.count > 1 else {
             return false
         }
 
