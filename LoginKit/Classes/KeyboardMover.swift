@@ -47,10 +47,10 @@ extension KeyboardMovable where Self: UIViewController {
     }
 
     func initKeyboardMover() {
-        keyboardShowObserver = notificationCenter.addObserver(forName: NSNotification.Name.UIKeyboardWillShow, object: nil, queue: nil) { notification in
+        keyboardShowObserver = notificationCenter.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: nil) { notification in
             self.keyboardWillShow(notification)
         }
-        keyboardHideObserver =  notificationCenter.addObserver(forName: NSNotification.Name.UIKeyboardWillHide, object: nil, queue: nil) { notification in
+        keyboardHideObserver =  notificationCenter.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: nil) { notification in
             self.keyboardWillHide(notification)
         }
     }
@@ -69,9 +69,9 @@ extension KeyboardMovable where Self: UIViewController {
             return
         }
 
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         let keyboardHeight: CGFloat = keyboardSize.height
-        let _: CGFloat = info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber as! CGFloat
+        let _: CGFloat = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber as! CGFloat
 
         animate(directionUp: true, keyboardHeight: keyboardHeight)
     }
@@ -81,9 +81,9 @@ extension KeyboardMovable where Self: UIViewController {
             return
         }
 
-        let keyboardSize = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         let keyboardHeight: CGFloat = keyboardSize.height
-        let _: CGFloat = info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber as! CGFloat
+        let _: CGFloat = info[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber as! CGFloat
 
         animate(directionUp: false, keyboardHeight: keyboardHeight)
     }
@@ -112,7 +112,7 @@ extension KeyboardMovable where Self: UIViewController {
             // RESET FRAME
             view.frame = view.frame.offsetBy(dx: 0, dy: -offset)
 
-            UIView.animate(withDuration: 0.25, delay: 0, options: UIViewAnimationOptions(), animations: {
+            UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions(), animations: {
                 if directionUp {
                     let centerInVisibleRect = CGPoint(x: visibleRect.width / 2, y: visibleRect.height / 2)
                     let y1 = centerInVisibleRect.y
