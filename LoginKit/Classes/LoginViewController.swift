@@ -60,6 +60,7 @@ open class LoginViewController: UIViewController, BackgroundMovable, KeyboardMov
 
 	override open func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .clear
 		_ = loadFonts
         setupValidation()
         initKeyboardMover()
@@ -145,14 +146,15 @@ open class LoginViewController: UIViewController, BackgroundMovable, KeyboardMov
 extension LoginViewController {
 
     func setupValidation() {
-        setupValidationOn(field: emailTextField, rules: ValidationService.emailRules)
+        setupValidationOn(field: emailTextField, rules: ValidationService.phoneRules)
         setupValidationOn(field: passwordTextField, rules: ValidationService.passwordRules)
     }
 
     func setupValidationOn(field: SkyFloatingLabelTextField, rules: ValidationRuleSet<String>) {
-        field.validationRules = rules
-        field.validateOnInputChange(enabled: true)
-        field.validationHandler = validationHandlerFor(field: field)
+        var myField = field
+        myField.validationRules = rules
+        myField.validateOnInputChange(enabled: true)
+        myField.validationHandler = validationHandlerFor(field: field)
     }
 
     func validationHandlerFor(field: SkyFloatingLabelTextField) -> ((ValidationResult) -> Void) {

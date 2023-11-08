@@ -124,9 +124,10 @@ extension PasswordViewController {
     }
 
     func setupValidationOn(field: SkyFloatingLabelTextField, rules: ValidationRuleSet<String>) {
-        field.validationRules = rules
-        field.validateOnInputChange(enabled: true)
-        field.validationHandler = validationHandlerFor(field: field)
+        var myField = field
+        myField.validationRules = rules
+        myField.validateOnInputChange(enabled: true)
+        myField.validationHandler = validationHandlerFor(field: field)
     }
 
     func validationHandlerFor(field: SkyFloatingLabelTextField) -> ((ValidationResult) -> Void) {

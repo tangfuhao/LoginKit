@@ -20,7 +20,7 @@ open class SignupViewController: UIViewController, KeyboardMovable, BackgroundMo
 
     // MARK: - Properties
 
-    weak var delegate: SignupViewControllerDelegate?
+    public weak var delegate: SignupViewControllerDelegate?
 
 	lazy var configuration: ConfigurationSource = {
 		return DefaultConfiguration()
@@ -147,7 +147,7 @@ extension SignupViewController {
 
     var equalPasswordRule: ValidationRuleEquality<String> {
         return ValidationRuleEquality<String>(dynamicTarget: { self.passwordTextField.text ?? "" },
-                                              error: ValidationError.passwordNotEqual)
+                                              error: LoginValidationError.passwordNotEqual)
     }
 
     func setupValidation() {
@@ -161,9 +161,10 @@ extension SignupViewController {
     }
 
     func setupValidationOn(field: SkyFloatingLabelTextField, rules: ValidationRuleSet<String>) {
-        field.validationRules = rules
-        field.validateOnInputChange(enabled: true)
-        field.validationHandler = validationHandlerFor(field: field)
+        var myField = field
+        myField.validationRules = rules
+        myField.validateOnInputChange(enabled: true)
+        myField.validationHandler = validationHandlerFor(field: field)
     }
 
     func validationHandlerFor(field: SkyFloatingLabelTextField) -> ((ValidationResult) -> Void) {

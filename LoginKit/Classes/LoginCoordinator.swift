@@ -10,7 +10,7 @@ import Foundation
 
 public protocol ConfigurationSource {
 
-    var backgroundImage: UIImage { get }
+    var backgroundImage: UIImage? { get }
 	var backgroundImageGradient: Bool { get }
     var mainLogoImage: UIImage { get }
     var secondaryLogoImage: UIImage { get }
@@ -38,7 +38,7 @@ public protocol ConfigurationSource {
 
 public struct DefaultConfiguration: ConfigurationSource {
 
-	public var backgroundImage: UIImage
+	public var backgroundImage: UIImage?
 	public var backgroundImageGradient: Bool
 	public var mainLogoImage: UIImage
 	public var secondaryLogoImage: UIImage
@@ -62,7 +62,7 @@ public struct DefaultConfiguration: ConfigurationSource {
 	public var shouldShowFacebookButton: Bool
 	public var shouldShowForgotPassword: Bool
 
-	public init(backgroundImage: UIImage = UIImage(),
+	public init(backgroundImage: UIImage? = UIImage(),
 		 backgroundImageGradient: Bool = true,
 		 mainLogoImage: UIImage = UIImage(),
 		 secondaryLogoImage: UIImage = UIImage(),
