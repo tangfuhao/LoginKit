@@ -11,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignupViewController" customModule="ILLoginKit" customModuleProvider="target">
             <connections>
                 <outlet property="backgroundImageView" destination="ViE-3o-Ioh" id="Wk9-jH-OzU"/>
-                <outlet property="emailTextField" destination="XRx-9N-yQb" id="HRe-h9-7MH"/>
+                <outlet property="userNameTextField" destination="XRx-9N-yQb" id="HRe-h9-7MH"/>
                 <outlet property="logoImageView" destination="B4D-0V-Nui" id="0Bn-m9-StD"/>
                 <outlet property="nameTextField" destination="gbE-TG-9bX" id="uRL-XM-6Bl"/>
                 <outlet property="passwordTextField" destination="8TC-HX-laI" id="iPU-WI-C95"/>
@@ -49,10 +49,10 @@
                                 <constraint firstAttribute="height" constant="50" id="mqV-hi-eH6"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="userNameAddress" returnKeyType="next"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="EMAIL"/>
-                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="Email"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="title" value="UserName"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="selectedLineHeight">
                                     <real key="value" value="2"/>
                                 </userDefinedRuntimeAttribute>

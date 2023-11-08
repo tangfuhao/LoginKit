@@ -37,7 +37,7 @@ class LoginCoordinator: ILLoginKit.LoginCoordinator {
 											 facebookButtonText: "Login with Facebook",
 											 forgotPasswordButtonText: "Forgot password?",
 											 recoverPasswordButtonText: "Recover",
-											 emailPlaceholder: "E-Mail",
+											 userNamePlaceholder: "Phone",
 											 passwordPlaceholder: "Password!",
 											 repeatPasswordPlaceholder: "Confirm password!",
 											 namePlaceholder: "Name",
@@ -57,15 +57,15 @@ class LoginCoordinator: ILLoginKit.LoginCoordinator {
 
     // MARK: - Completion Callbacks
 
-    override func login(email: String, password: String) {
+    override func login(userName: String, password: String) {
         // Handle login via your API
-        print("Login with: email =\(email) password = \(password)")
+        print("Login with: userName =\(userName) password = \(password)")
 		finish()
     }
 
-    override func signup(name: String, email: String, password: String) {
+    override func signup(name: String, userName: String, password: String) {
         // Handle signup via your API
-        print("Signup with: name = \(name) email =\(email) password = \(password)")
+        print("Signup with: name = \(name) userName =\(userName) password = \(password)")
     }
 
     override func enterWithFacebook(profile: FacebookProfile) {
@@ -74,9 +74,9 @@ class LoginCoordinator: ILLoginKit.LoginCoordinator {
 
     }
 
-    override func recoverPassword(email: String) {
+    override func recoverPassword(userName: String) {
         // Handle password recovery via your API
-        print("Recover password with: email =\(email)")
+        print("Recover password with: userName =\(userName)")
     }
 
 }
@@ -91,7 +91,7 @@ enum Settings {
 														 facebookButtonText: "Login with Facebook",
 														 forgotPasswordButtonText: "Forgot password?",
 														 recoverPasswordButtonText: "Recover",
-														 emailPlaceholder: "E-Mail",
+														 userNamePlaceholder: "E-Mail",
 														 passwordPlaceholder: "Password!",
 														 repeatPasswordPlaceholder: "Confirm password!",
 														 namePlaceholder: "Name",

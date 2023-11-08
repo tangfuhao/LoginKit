@@ -11,7 +11,7 @@ import Validator
 
 public protocol PasswordViewControllerDelegate: class {
 
-    func didSelectRecover(_ viewController: UIViewController, email: String)
+    func didSelectRecover(_ viewController: UIViewController, userName: String)
     func passwordDidSelectBack(_ viewController: UIViewController)
 
 }
@@ -44,7 +44,7 @@ open class PasswordViewController: UIViewController, BackgroundMovable, Keyboard
 
     // MARK: Outlet's
 
-    @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var userNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var recoverButton: Buttn!
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var backgroundImageView: GradientImageView!
@@ -85,13 +85,13 @@ open class PasswordViewController: UIViewController, BackgroundMovable, Keyboard
         backgroundImageView.fadeColor = configuration.tintColor
         logoImageView.image = configuration.secondaryLogoImage
 
-        emailTextField.placeholder = configuration.emailPlaceholder
-        emailTextField.errorColor = configuration.errorTintColor
+        userNameTextField.placeholder = configuration.userNamePlaceholder
+        userNameTextField.errorColor = configuration.errorTintColor
         recoverButton.setTitle(configuration.recoverPasswordButtonText, for: .normal)
     }
 
     func setupFonts() {
-        emailTextField.font = Font.montserratRegular.get(size: 13)
+        userNameTextField.font = Font.montserratRegular.get(size: 13)
         recoverButton.titleLabel?.font = Font.montserratRegular.get(size: 15)
     }
 
@@ -104,12 +104,12 @@ open class PasswordViewController: UIViewController, BackgroundMovable, Keyboard
     @IBAction func didSelectRecover(_ sender: AnyObject) {
         recoverAttempted = true
 
-        guard let email = emailTextField.text else {
+        guard let userName = userNameTextField.text else {
             return
         }
 
         validateFields {
-            delegate?.didSelectRecover(self, email: email)
+            delegate?.didSelectRecover(self, userName: userName)
         }
     }
     
@@ -120,7 +120,7 @@ open class PasswordViewController: UIViewController, BackgroundMovable, Keyboard
 extension PasswordViewController {
 
     func setupValidation() {
-        setupValidationOn(field: emailTextField, rules: ValidationService.emailRules)
+        setupValidationOn(field: userNameTextField, rules: ValidationService.userNameRules)
     }
 
     func setupValidationOn(field: SkyFloatingLabelTextField, rules: ValidationRuleSet<String>) {
@@ -150,14 +150,14 @@ extension PasswordViewController {
     }
 
     func validateFields(success: () -> Void) {
-        let result = emailTextField.validate()
+        let result = userNameTextField.validate()
         switch result {
         case .valid:
-            emailTextField.errorMessage = nil
+            userNameTextField.errorMessage = nil
             success()
         case .invalid(let errors):
             if let errors = errors as? [ValidationError] {
-                emailTextField.errorMessage = errors.first?.message
+                userNameTextField.errorMessage = errors.first?.message
             }
         }
     }

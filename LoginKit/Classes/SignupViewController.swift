@@ -11,7 +11,7 @@ import Validator
 
 public protocol SignupViewControllerDelegate: class {
 
-    func didSelectSignup(_ viewController: UIViewController, email: String, name: String, password: String)
+    func didSelectSignup(_ viewController: UIViewController, userName: String, name: String, password: String)
     func signupDidSelectBack(_ viewController: UIViewController)
 
 }
@@ -51,7 +51,7 @@ open class SignupViewController: UIViewController, KeyboardMovable, BackgroundMo
     // MARK: Outlet's
 
     @IBOutlet var fields: [SkyFloatingLabelTextField]!
-    @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var userNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var nameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var repeatPasswordTextField: SkyFloatingLabelTextField!
@@ -68,6 +68,13 @@ open class SignupViewController: UIViewController, KeyboardMovable, BackgroundMo
         initKeyboardMover()
         initBackgroundMover()
         customizeAppearance()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
 	override open func loadView() {
@@ -104,8 +111,8 @@ open class SignupViewController: UIViewController, KeyboardMovable, BackgroundMo
         backgroundImageView.fadeColor = configuration.tintColor
         logoImageView.image = configuration.secondaryLogoImage
 
-        emailTextField.placeholder = configuration.emailPlaceholder
-        emailTextField.errorColor = configuration.errorTintColor
+        userNameTextField.placeholder = configuration.userNamePlaceholder
+        userNameTextField.errorColor = configuration.errorTintColor
         nameTextField.placeholder = configuration.namePlaceholder
         nameTextField.errorColor = configuration.errorTintColor
         passwordTextField.placeholder = configuration.passwordPlaceholder
@@ -116,7 +123,7 @@ open class SignupViewController: UIViewController, KeyboardMovable, BackgroundMo
 
     func setupFonts() {
         nameTextField.font = Font.montserratRegular.get(size: 13)
-        emailTextField.font = Font.montserratRegular.get(size: 13)
+        userNameTextField.font = Font.montserratRegular.get(size: 13)
         passwordTextField.font = Font.montserratRegular.get(size: 13)
         repeatPasswordTextField.font = Font.montserratRegular.get(size: 13)
         signupButton.titleLabel?.font = Font.montserratRegular.get(size: 15)
@@ -129,13 +136,13 @@ open class SignupViewController: UIViewController, KeyboardMovable, BackgroundMo
     }
 
     @IBAction func didSelectSignup(_ sender: AnyObject) {
-        guard let email = emailTextField.text, let name = nameTextField.text, let password = passwordTextField.text else {
+        guard let userName = userNameTextField.text, let name = nameTextField.text, let password = passwordTextField.text else {
             return
         }
 
         signupAttempted = true
         validateFields {
-            delegate?.didSelectSignup(self, email: email, name: name, password: password)
+            delegate?.didSelectSignup(self, userName: userName, name: name, password: password)
         }
     }
 
@@ -152,7 +159,7 @@ extension SignupViewController {
 
     func setupValidation() {
         setupValidationOn(field: nameTextField, rules: ValidationService.nameRules)
-        setupValidationOn(field: emailTextField, rules: ValidationService.emailRules)
+        setupValidationOn(field: userNameTextField, rules: ValidationService.userNameRules)
 
         var passwordRules = ValidationService.passwordRules
         setupValidationOn(field: passwordTextField, rules: passwordRules)

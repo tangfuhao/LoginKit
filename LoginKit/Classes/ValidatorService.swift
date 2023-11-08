@@ -8,12 +8,12 @@
 
 import Foundation
 import Validator
-
+import PhoneNumberKit
 
 
 enum LoginValidationError: String, ValidationError {
     case invalidName = "Invalid name"
-    case invalidEmail = "Invalid email address"
+    case invalidUserName = "Invalid userName address"
     case passwordLength = "Must be at least 8 characters"
     case passwordNotEqual = "Password does not match"
     case invalidPhoneNumber = "Invalid phone number"
@@ -29,48 +29,45 @@ enum LoginValidationError: String, ValidationError {
 public struct PhoneNumberRule: ValidationRule {
     public func validate(input: String?) -> Bool {
         guard let input = input else {return false}
-        let phoneNumberRegex = "^[0-9]{10,15}$"
-        let phoneNumberPredicate = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex)
-        return phoneNumberPredicate.evaluate(with: input)
+        return isValidPhoneNumber(phoneNumber: input, phoneNumberKit: phoneNumberKit)
+    }
+    
+    func isValidPhoneNumber(phoneNumber: String, phoneNumberKit: PhoneNumberKit) -> Bool {
+        do {
+            let _ = try phoneNumberKit.parse(phoneNumber, withRegion: PhoneNumberKit.defaultRegionCode(), ignoreType: false)
+            return true
+        } catch {
+            return false
+        }
     }
     
     public var error: ValidationError
     public typealias InputType = String
+    let phoneNumberKit = PhoneNumberKit()
 
 }
-
-public struct FullNameRule: ValidationRule {
+public struct NickNameRule: ValidationRule {
     public func validate(input: String?) -> Bool {
-        guard let input = input else {return false}
-        let components = input.components(separatedBy: " ")
-        guard components.count > 1 else {
-            return false
-        }
-
-        guard let first = components.first, let last = components.last else {
-            return false
-        }
-
-        guard first.characters.count > 1, last.characters.count > 1 else {
-            return false
-        }
-
-        return true
+        guard let input = input, !input.isEmpty else { return false }
+        
+        let regexPattern = "^[a-zA-Z]+$"
+        let regex = try? NSRegularExpression(pattern: regexPattern, options: [])
+        let matches = regex?.numberOfMatches(in: input, options: [], range: NSRange(location: 0, length: input.count)) ?? 0
+        
+        return matches > 0
     }
-    
+
     public var error: ValidationError
     public typealias InputType = String
-
 }
 
 
 struct ValidationService {
 
-    static var emailRules: ValidationRuleSet<String> {
-        var emailRules = ValidationRuleSet<String>()
-        emailRules.add(rule: ValidationRulePattern(pattern: EmailValidationPattern.standard,
-                                                   error: LoginValidationError.invalidEmail))
-        return emailRules
+    static var userNameRules: ValidationRuleSet<String> {
+        var userNameRules = ValidationRuleSet<String>()
+        userNameRules.add(rule: PhoneNumberRule(error: LoginValidationError.invalidPhoneNumber))
+        return userNameRules
     }
 
     static var passwordRules: ValidationRuleSet<String> {
@@ -81,15 +78,11 @@ struct ValidationService {
 
     static var nameRules: ValidationRuleSet<String> {
         var nameRules = ValidationRuleSet<String>()
-        nameRules.add(rule: FullNameRule(error: LoginValidationError.invalidName))
+        nameRules.add(rule: ValidationRuleLength(min: 2,max: 12, error: LoginValidationError.passwordLength))
+        nameRules.add(rule: NickNameRule(error: LoginValidationError.invalidName))
         return nameRules
     }
     
-    static var phoneRules: ValidationRuleSet<String> {
-        var phoneRules = ValidationRuleSet<String>()
-        phoneRules.add(rule: PhoneNumberRule(error: LoginValidationError.invalidPhoneNumber))
-        return phoneRules
-    }
 
 
 

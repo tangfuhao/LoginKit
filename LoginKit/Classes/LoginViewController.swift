@@ -11,7 +11,7 @@ import Validator
 
 public protocol LoginViewControllerDelegate: AnyObject {
 
-    func didSelectLogin(_ viewController: UIViewController, email: String, password: String)
+    func didSelectLogin(_ viewController: UIViewController, userName: String, password: String)
     func didSelectForgotPassword(_ viewController: UIViewController)
     func loginDidSelectBack(_ viewController: UIViewController)
 
@@ -48,7 +48,7 @@ open class LoginViewController: UIViewController, BackgroundMovable, KeyboardMov
     // MARK: Outlet's
 
     @IBOutlet var fields: Array<SkyFloatingLabelTextField> = []
-    @IBOutlet weak var emailTextField: SkyFloatingLabelTextField!
+    @IBOutlet weak var userNameTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordTextField: SkyFloatingLabelTextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var logoImageView: UIImageView!
@@ -66,6 +66,14 @@ open class LoginViewController: UIViewController, BackgroundMovable, KeyboardMov
         initKeyboardMover()
         initBackgroundMover()
         customizeAppearance()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
 	override open func loadView() {
@@ -99,8 +107,8 @@ open class LoginViewController: UIViewController, BackgroundMovable, KeyboardMov
         backgroundImageView.fadeColor = configuration.tintColor
         logoImageView.image = configuration.secondaryLogoImage
 
-        emailTextField.placeholder = configuration.emailPlaceholder
-        emailTextField.errorColor = configuration.errorTintColor
+        userNameTextField.placeholder = configuration.userNamePlaceholder
+        userNameTextField.errorColor = configuration.errorTintColor
         passwordTextField.placeholder = configuration.passwordPlaceholder
         passwordTextField.errorColor = configuration.errorTintColor
 
@@ -113,7 +121,7 @@ open class LoginViewController: UIViewController, BackgroundMovable, KeyboardMov
     }
 
     func setupFonts() {
-        emailTextField.font = Font.montserratRegular.get(size: 13)
+        userNameTextField.font = Font.montserratRegular.get(size: 13)
         passwordTextField.font = Font.montserratRegular.get(size: 13)
         forgotPasswordButton.titleLabel?.font = Font.montserratLight.get(size: 13)
         loginButton.titleLabel?.font = Font.montserratRegular.get(size: 15)
@@ -126,12 +134,12 @@ open class LoginViewController: UIViewController, BackgroundMovable, KeyboardMov
     }
 
     @IBAction func didSelectLogin(_ sender: AnyObject) {
-        guard let email = emailTextField.text, let password = passwordTextField.text else {
+        guard let userName = userNameTextField.text, let password = passwordTextField.text else {
             return
         }
         loginAttempted = true
         validateFields {
-            delegate?.didSelectLogin(self, email: email, password: password)
+            delegate?.didSelectLogin(self, userName: userName, password: password)
         }
     }
 
@@ -146,7 +154,7 @@ open class LoginViewController: UIViewController, BackgroundMovable, KeyboardMov
 extension LoginViewController {
 
     func setupValidation() {
-        setupValidationOn(field: emailTextField, rules: ValidationService.phoneRules)
+        setupValidationOn(field: userNameTextField, rules: ValidationService.userNameRules)
         setupValidationOn(field: passwordTextField, rules: ValidationService.passwordRules)
     }
 

@@ -48,8 +48,8 @@ class ViewController: UIViewController {
 
 extension ViewController: LoginViewControllerDelegate {
 
-	func didSelectLogin(_ viewController: UIViewController, email: String, password: String) {
-		print("DID SELECT LOGIN; EMAIL = \(email); PASSWORD = \(password)")
+	func didSelectLogin(_ viewController: UIViewController, userName: String, password: String) {
+		print("DID SELECT LOGIN; EMAIL = \(userName); PASSWORD = \(password)")
 	}
 
 	func didSelectForgotPassword(_ viewController: UIViewController) {

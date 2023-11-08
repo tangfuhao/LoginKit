@@ -7,9 +7,9 @@
 
 ## About
 
-LoginKit is a quick and easy way to add Facebook and email Login/Signup UI to your app. If you need to quickly prototype an app, create an MVP or finish an app for a hackathon, LoginKit can help you by letting you focus on what makes your app special and leave login/signup to LoginKit. But if what you really want is a really specific and customized login/singup flow you are probably better off creating it on your own.
+LoginKit is a quick and easy way to add Facebook and userName Login/Signup UI to your app. If you need to quickly prototype an app, create an MVP or finish an app for a hackathon, LoginKit can help you by letting you focus on what makes your app special and leave login/signup to LoginKit. But if what you really want is a really specific and customized login/singup flow you are probably better off creating it on your own.
 
-LoginKit handles Signup & Login, via Facebook & Email. It takes care of the UI, the forms, validation, and Facebook SDK access. All you need to do is start LoginKit, and then make the necessary calls to your own backend API to login or signup.
+LoginKit handles Signup & Login, via Facebook & UserName. It takes care of the UI, the forms, validation, and Facebook SDK access. All you need to do is start LoginKit, and then make the necessary calls to your own backend API to login or signup.
 
 **This is a simple example of how your login can look. Check out the example project to see how this was done and tinker around with it.** 
 
@@ -113,7 +113,7 @@ You can set any of these properties on the `configuration` property of the super
 | forgotPasswordButtonText |  The text for the forgot password button.  | 
 | recoverPasswordButtonText |  The text for the recover password button.  | 
 | namePlaceholder |  The placeholder that will be used in the name text field.  | 
-| emailPlaceholder |  The placeholder that will be used in the email text field.  | 
+| userNamePlaceholder |  The placeholder that will be used in the userName text field.  | 
 | passwordPlaceholder |  The placeholder that will be used in the password text field.  | 
 | repeatPasswordPlaceholder |  The placeholder that will be used in the repeat password text field.  | 
 | shouldShowSignupButton |  To hide the signup button set to false. (Default is true)  |
@@ -140,7 +140,7 @@ func configureAppearance() {
     configuration.forgotPasswordButtonText = "Forgot password?"
     configuration.recoverPasswordButtonText = "Recover"
     configuration.namePlaceholder = "Name"
-    configuration.emailPlaceholder = "E-Mail"
+    configuration.userNamePlaceholder = "E-Mail"
     configuration.passwordPlaceholder = "Password!"
     configuration.repeatPasswordPlaceholder = "Confirm password!"
 }
@@ -154,7 +154,7 @@ configuration = DefaultConfiguration(backgroundImage: signupButtonText: "Create 
 					 facebookButtonText: "Login with Facebook",
 					 forgotPasswordButtonText: "Forgot password?",
 					 recoverPasswordButtonText: "Recover",
-					 emailPlaceholder: "E-Mail",
+					 userNamePlaceholder: "E-Mail",
 					 passwordPlaceholder: "Password!",
 					 repeatPasswordPlaceholder: "Confirm password!",
 					 namePlaceholder: "Name",
@@ -172,13 +172,13 @@ Here you would call your own API.
 
 ```swift
 // Handle login via your API
-override func login(email: String, password: String) {
-    print("Login with: email =\(email) password = \(password)")
+override func login(userName: String, password: String) {
+    print("Login with: userName =\(userName) password = \(password)")
 }
 
 // Handle signup via your API
-override func signup(name: String, email: String, password: String) {
-    print("Signup with: name = \(name) email =\(email) password = \(password)")
+override func signup(name: String, userName: String, password: String) {
+    print("Signup with: name = \(name) userName =\(userName) password = \(password)")
 }
 
 // Handle Facebook login/signup via your API
@@ -187,8 +187,8 @@ override func enterWithFacebook(profile: FacebookProfile) {
 }
 
 // Handle password recovery via your API
-override func recoverPassword(email: String) {
-    print("Recover password with: email =\(email)")
+override func recoverPassword(userName: String) {
+    print("Recover password with: userName =\(userName)")
 }
 ```
 
@@ -243,7 +243,7 @@ class LoginCoordinator: ILLoginKit.LoginCoordinator {
         configuration.forgotPasswordButtonText = "Forgot password?"
         configuration.recoverPasswordButtonText = "Recover"
         configuration.namePlaceholder = "Name"
-        configuration.emailPlaceholder = "E-Mail"
+        configuration.userNamePlaceholder = "E-Mail"
         configuration.passwordPlaceholder = "Password!"
         configuration.repeatPasswordPlaceholder = "Confirm password!"
     }
@@ -251,13 +251,13 @@ class LoginCoordinator: ILLoginKit.LoginCoordinator {
     // MARK: - Completion Callbacks
 
     // Handle login via your API
-    override func login(email: String, password: String) {
-        print("Login with: email =\(email) password = \(password)")
+    override func login(userName: String, password: String) {
+        print("Login with: userName =\(userName) password = \(password)")
     }
     
     // Handle signup via your API
-    override func signup(name: String, email: String, password: String) {
-        print("Signup with: name = \(name) email =\(email) password = \(password)")
+    override func signup(name: String, userName: String, password: String) {
+        print("Signup with: name = \(name) userName =\(userName) password = \(password)")
     }
 
     // Handle Facebook login/signup via your API
@@ -266,8 +266,8 @@ class LoginCoordinator: ILLoginKit.LoginCoordinator {
     }
 
     // Handle password recovery via your API
-    override func recoverPassword(email: String) {
-        print("Recover password with: email =\(email)")
+    override func recoverPassword(userName: String) {
+        print("Recover password with: userName =\(userName)")
     }
 
 }

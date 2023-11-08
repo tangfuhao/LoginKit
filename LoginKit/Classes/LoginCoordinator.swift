@@ -24,7 +24,7 @@ public protocol ConfigurationSource {
     var forgotPasswordButtonText: String { get }
     var recoverPasswordButtonText: String { get }
 
-    var emailPlaceholder: String { get }
+    var userNamePlaceholder: String { get }
     var passwordPlaceholder: String { get }
     var repeatPasswordPlaceholder: String { get }
     var namePlaceholder: String { get }
@@ -52,7 +52,7 @@ public struct DefaultConfiguration: ConfigurationSource {
 	public var forgotPasswordButtonText: String
 	public var recoverPasswordButtonText: String
 
-	public var emailPlaceholder: String
+	public var userNamePlaceholder: String
 	public var passwordPlaceholder: String
 	public var repeatPasswordPlaceholder: String
 	public var namePlaceholder: String
@@ -73,10 +73,10 @@ public struct DefaultConfiguration: ConfigurationSource {
 		 facebookButtonText: String = "Enter with Facebook",
 		 forgotPasswordButtonText: String = "Forgot Password",
 		 recoverPasswordButtonText: String = "Recover Password",
-		 emailPlaceholder: String = "Email",
+		 userNamePlaceholder: String = "Phone Number",
 		 passwordPlaceholder: String = "Password",
 		 repeatPasswordPlaceholder: String = "Repeat Password",
-		 namePlaceholder: String = "Full Name",
+		 namePlaceholder: String = "Nick Name",
 		 shouldShowSignupButton: Bool = true,
 		 shouldShowLoginButton: Bool = true,
 		 shouldShowFacebookButton: Bool = true,
@@ -92,7 +92,7 @@ public struct DefaultConfiguration: ConfigurationSource {
 		self.facebookButtonText = facebookButtonText
 		self.forgotPasswordButtonText = forgotPasswordButtonText
 		self.recoverPasswordButtonText = recoverPasswordButtonText
-		self.emailPlaceholder = emailPlaceholder
+		self.userNamePlaceholder = userNamePlaceholder
 		self.passwordPlaceholder = passwordPlaceholder
 		self.repeatPasswordPlaceholder = repeatPasswordPlaceholder
 		self.namePlaceholder = namePlaceholder
@@ -215,11 +215,11 @@ open class LoginCoordinator {
 
     // MARK: - Callbacks, Meant to be subclassed
 
-    open func login(email: String, password: String) {
+    open func login(userName: String, password: String) {
         print("Implement this method in your subclass to handle login.")
     }
 
-    open func signup(name: String, email: String, password: String) {
+    open func signup(name: String, userName: String, password: String) {
         print("Implement this method in your subclass to handle signup.")
     }
 
@@ -227,7 +227,7 @@ open class LoginCoordinator {
         print("Implement this method in your subclass to handle facebook.")
     }
 
-    open func recoverPassword(email: String) {
+    open func recoverPassword(userName: String) {
         print("Implement this method in your subclass to handle password recovery.")
     }
 
@@ -282,8 +282,8 @@ extension LoginCoordinator: InitialViewControllerDelegate {
 
 extension LoginCoordinator: LoginViewControllerDelegate {
 
-	public func didSelectLogin(_ viewController: UIViewController, email: String, password: String) {
-        login(email: email, password: password)
+	public func didSelectLogin(_ viewController: UIViewController, userName: String, password: String) {
+        login(userName: userName, password: password)
     }
 
 	public func didSelectForgotPassword(_ viewController: UIViewController) {
@@ -298,8 +298,8 @@ extension LoginCoordinator: LoginViewControllerDelegate {
 
 extension LoginCoordinator: SignupViewControllerDelegate {
 
-    public func didSelectSignup(_ viewController: UIViewController, email: String, name: String, password: String) {
-        signup(name: name, email: email, password: password)
+    public func didSelectSignup(_ viewController: UIViewController, userName: String, name: String, password: String) {
+        signup(name: name, userName: userName, password: password)
     }
 
     public func signupDidSelectBack(_ viewController: UIViewController) {
@@ -311,8 +311,8 @@ extension LoginCoordinator: SignupViewControllerDelegate {
 
 extension LoginCoordinator: PasswordViewControllerDelegate {
 
-    public func didSelectRecover(_ viewController: UIViewController, email: String) {
-        recoverPassword(email: email)
+    public func didSelectRecover(_ viewController: UIViewController, userName: String) {
+        recoverPassword(userName: userName)
     }
 
     public func passwordDidSelectBack(_ viewController: UIViewController) {

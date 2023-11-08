@@ -27,7 +27,7 @@ public struct FacebookProfile {
     public let facebookToken: String
     public let firstName: String
     public let lastName: String
-    public let email: String
+    public let userName: String
 
     public var fullName: String {
         return firstName + " " + lastName
@@ -44,7 +44,7 @@ public class FacebookService {
 //        return manager
 //    }()
 
-    let permissions = ["email", "public_profile"]
+    let permissions = ["userName", "public_profile"]
 
     public func login(from viewController: UIViewController, completion: @escaping FacebookCompletion) {
 //        loginManager.logIn(withReadPermissions: permissions, from: viewController) { (result, error) in
@@ -67,7 +67,7 @@ public class FacebookService {
 //            } else {
 //                print("FACEBOOK LOGIN: SUCCESS")
 //                print("PERMISSIONS: \(result.grantedPermissions)")
-//                if result.grantedPermissions.contains("email") && result.grantedPermissions.contains("public_profile") {
+//                if result.grantedPermissions.contains("userName") && result.grantedPermissions.contains("public_profile") {
 //                    print("FACEBOOK LOGIN: PERMISSIONS GRANTED")
 //                    self.getUserInfo(loginResult: result, completion: completion)
 //                } else {
@@ -89,7 +89,7 @@ private extension FacebookService {
 //            return
 //        }
 //
-//        let params = ["fields" : "id, name, email"]
+//        let params = ["fields" : "id, name, userName"]
 //
 //        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: params)
 //        _ = graphRequest?.start { (connection, result, error) in
@@ -105,7 +105,7 @@ private extension FacebookService {
 //                }
 //            }
 //
-//            guard let facebookId = userData["id"], let fullName = userData["name"], let email = userData["email"] else {
+//            guard let facebookId = userData["id"], let fullName = userData["name"], let userName = userData["userName"] else {
 //                print("FACEBOOK: GRAPH REQUEST: MISSING DATA")
 //                completion(.unknownError)
 //                return
@@ -125,7 +125,7 @@ private extension FacebookService {
 //                                          facebookToken: facebookToken,
 //                                          firstName: firstName,
 //                                          lastName: lastName,
-//                                          email: email)
+//                                          userName: userName)
 //            completion(.success(profile))
 //        }
 //    }
